@@ -1,0 +1,5 @@
+INSERT INTO PM_SENSORS (id, lon, lat) VALUES (1, 1.2, 1.3);
+INSERT INTO PM_SENSORS (id, lon, lat) VALUES (2, 2.2, 2.3);
+INSERT INTO PM_SENSORS (id, lon, lat) VALUES (3, 3.2, 3.3);
+INSERT INTO PM_SENSORS (id, lon, lat) VALUES (4, 4.2, 4.3);
+INSERT INTO PM_SENSORS (id, lon, lat) VALUES (5, 5.2, 5.3);
