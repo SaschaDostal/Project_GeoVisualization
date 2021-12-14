@@ -16,4 +16,12 @@ public class PMStations {
 	public String toString() {
 		return "id: " + id + ", lon: " + lon + ", lat: " +lat;
 	}
+	
+	public float getLon() {
+		return lon;
+	}
+	
+	public float getLat() {
+		return lat;
+	}
 }
