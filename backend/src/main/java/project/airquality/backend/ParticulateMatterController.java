@@ -9,20 +9,22 @@ import java.sql.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
-
+@CrossOrigin(origins = "*")
 @RestController
 public class ParticulateMatterController {
 	
 	@Autowired
 	private PMRepository pmrepo;
-	
-	@RequestMapping("/")
-	public String getTest(@RequestParam int id) {
+	@RequestMapping("/PMStations/{id}")
+	public String getPMStation(@PathVariable(value="id") int id) {
 		JSONObject jo = new JSONObject();
+		jo.put("id", id);
 		jo.put("lon", pmrepo.findById((long) id).get().getLon());
 		jo.put("lat", pmrepo.findById((long) id).get().getLat());
 		
@@ -41,7 +43,7 @@ public class ParticulateMatterController {
 		return "ID: " + id + ", lon: " + pmrepo.findById((long) id).get().getLon();
 	}
 	
-	@RequestMapping("/allPMStations")
+	@RequestMapping("/PMStations")
 	public String getAllPMStations() throws SQLException {
 		Connection con = DriverManager.
 	            getConnection("jdbc:h2:file:./database", "sa", "");
