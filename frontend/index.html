@@ -31,7 +31,7 @@
             border-radius: 10px;
         }
     </style>
-    
+
     <!--Bootstrap Navbar-->
     <nav class="navbar navbar-expand-lg navbar-dark " style="background-color:#000000;">
         <div class="container-fluid">
@@ -44,10 +44,8 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link active" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+                        aria-controls="offcanvasRight" href="#">Toggle Sidebar</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -64,14 +62,22 @@
                         </ul>
                     </li>
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
             </div>
         </div>
     </nav>
+
+    <!--Bootstrap Off Canvas-->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header">
+            <h5 id="offcanvasRightLabel">Informationen</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            Luft in Stuttgart ist schlecht. Danke fürs Lesen.
+        </div>
+    </div>
     <div id="mapid"></div>
+    <div id="sidebar" style="display: block;"></div>
     <script src="map.js"></script>
     <p id="test">test</p>
 </body>
