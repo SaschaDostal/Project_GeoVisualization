@@ -24,7 +24,12 @@
 <body>
     <style>
         #mapid {
-            height: 85%;
+            height: 92%;
+        }
+        #circle {
+            height: 15px;
+            width: 15px;
+            border-radius: 10px;
         }
     </style>
 
@@ -40,26 +45,68 @@
                         <a class="nav-link active" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom"
                             aria-controls="offcanvasBottom" href="#">Allgemeine Informationen</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Tag
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <button class="dropdown-item" type="button">01.01.2021</a></button>
-                            <button class="dropdown-item" type="button">02.01.2021</a></button>
-                        </ul>
-                    </li>
+                    <button class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+                        aria-controls="offcanvasRight">Rechte Info-Sidebar</button>
                 </ul>
+                <span class="navbar-text">
+                    &nbsp;Tag:&nbsp;
+                </span>
+                <div class="form-group">
+                    <select class="form-control" id="selectDay">
+                        <option>Tag 1</option>
+                    </select>
+                </div>
+                <span class="navbar-text">
+                    &nbsp;Stunde:&nbsp;
+                </span>
+                <div class="form-group">
+                    <select class="form-control" id="selectHour">
+                        <option>00</option>
+                        <option>01</option>
+                        <option>02</option>
+                        <option>03</option>
+                        <option>04</option>
+                        <option>05</option>
+                        <option>06</option>
+                        <option>07</option>
+                        <option>08</option>
+                        <option>09</option>
+                        <option>10</option>
+                        <option>11</option>
+                        <option>12</option>
+                        <option>13</option>
+                        <option>14</option>
+                        <option>15</option>
+                        <option>16</option>
+                        <option>17</option>
+                        <option>18</option>
+                        <option>19</option>
+                        <option>20</option>
+                        <option>21</option>
+                        <option>22</option>
+                        <option>23</option>
+                    </select>
+                </div>
+                <span class="navbar-text">
+                    &nbsp;Minute:&nbsp;
+                </span>
+                <div class="form-group">
+                    <select class="form-control" id="selectMin">
+                        <option>00</option>
+                        <option>10</option>
+                        <option>20</option>
+                        <option>30</option>
+                        <option>40</option>
+                        <option>50</option>
+                    </select>
+                </div>
+                <li><button onclick="setTime()" class="btn btn-primary" type="submit">Auswählen</button></li>
             </div>
-            <button class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
-                aria-controls="offcanvasRight">Infos</button>
         </div>
     </nav>
 
     <!--Bootstrap Off Canvas Right-->
-    <div class="offcanvas offcanvas-end" offcanvas-horizontal-width="30px" data-bs-scroll="true"
-        data-bs-backdrop="false" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header">
             <h5 id="offcanvasRightLabel">Sensor Informationen</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -70,26 +117,29 @@
         </div>
     </div>
     <!--Bootstrap Off Canvas Bottom-->
-    <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+        id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasBottomLabel">Allgemeine Informationen</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body small">
-            Allgemeine Diagramme und Infos zu den Datensätzen.
+            Falls der Server an ist werden hier JSON-Testdaten abgebildet:
+            <p id="test">Server ist aus oder es gab einen Fehler.</p>
         </div>
     </div>
     <div id="mapid"></div>
-    <p id="test">test</p>
     <link rel="stylesheet" href="dist/leaflet-velocity.css" />
     <script src="dist/leaflet-velocity.js"></script>
-    
-    <!--Wind Testdata-->
-    <script src="wind-global.js"></script>
-    
-    <!--Map Creation and Layers-->
+    <script src="dist/leaflet-idw.js"> </script>
+
+    <!--Testdata-->
+    <script src="test_data.js"></script>
+
+    <!--Map Creation, Layers, Buttons-->
     <script src="map.js"></script>
-    
+    <script src="buttons.js"></script>
+
     <!--Apex Charts-->
     <script src="chart_1.js"></script>
 </body>
