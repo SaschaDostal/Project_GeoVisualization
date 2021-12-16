@@ -12,7 +12,7 @@ var CartoDB_Positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/
 CartoDB_Positron.addTo(map);
 
 // _______________________Legende________________________
-var legend = L.control({position: 'bottomright'});
+var legend = L.control({ position: 'bottomright' });
 legend.onAdd = function (map) {
     var colors = ["#ffffff", "#fee6ce", "#fdae6b", "#f16913", "#a63603", "#7f2704"];
     var div = L.DomUtil.create('div', 'legend');
@@ -20,11 +20,11 @@ legend.onAdd = function (map) {
     labels = ['<b>&nbsp;Feinstaubwerte:</b>'];
     categories = ['0 µg/m³', '240 µg/m³', '480 µg/m³', '720 µg/m³', '960 µg/m³', '1200 µg/m³'];
     for (var i = categories.length - 1; i >= 0; i--) {
-            div.innerHTML += 
+        div.innerHTML +=
             labels.push(
                 '<div><div style="float:left">&nbsp;</div><div id="circle" style="background:' + colors[i] + ';float:left"></div>&nbsp;' + categories[i] + '&nbsp;</div>');
-        }
-        div.innerHTML = labels.join('<br>');
+    }
+    div.innerHTML = labels.join('<br>');
     return div;
 };
 legend.addTo(map);
@@ -44,7 +44,7 @@ var velocityLayer = L.velocityLayer({
 // _________________Leaflet IDW PM Layer__________________
 var idwPM10Layer = L.idwLayer(idwData,
     {
-        opacity: 0.25, cellSize: 10, exp: 2, max: 1200, gradient: {
+        opacity: 0.25, cellSize: 20, exp: 2, max: 1200, gradient: {
             0.0: '#ffffff',
             0.1: '#fff5eb',
             0.2: '#fee6ce',
@@ -61,7 +61,7 @@ var idwPM10Layer = L.idwLayer(idwData,
 
 var idwPM2_5Layer = L.idwLayer(idwData2,
     {
-        opacity: 0.25, cellSize: 10, exp: 2, max: 1200, gradient: {
+        opacity: 0.25, cellSize: 20, exp: 2, max: 1200, gradient: {
             0.0: '#ffffff',
             0.1: '#f7fbff',
             0.2: '#deebf7',
@@ -76,6 +76,53 @@ var idwPM2_5Layer = L.idwLayer(idwData2,
         }
     })
 
+// ____________________PM Station Marker____________________
+
+var pmicon = L.icon({
+    // Icons made by https://www.flaticon.com/authors/victoruler from https://www.flaticon.com/
+    iconUrl: 'resources/pmcloud.png',
+    iconSize: [32, 32],
+    iconAnchor: [0, 16]
+});
+
+var markert1 = L.marker(
+    [48.77069, 9.18207],
+    {
+        icon: pmicon,
+        title: 'PM Station Test'
+    }
+).on('click', onClick)
+
+var markert2 = L.marker(
+    [48.77336, 9.17313],
+    {
+        icon: pmicon,
+        title: 'PM Station Test'
+    }
+).on('click', onClick)
+
+var markert3 = L.marker(
+    [48.76944, 9.15423],
+    {
+        icon: pmicon,
+        title: 'PM Station Test'
+    }
+).on('click', onClick)
+
+var markert4 = L.marker(
+    [48.78688, 9.17915],
+    {
+        icon: pmicon,
+        title: 'PM Station Test'
+    }
+).on('click', onClick)
+
+var pmmarkers = L.layerGroup([markert1, markert2, markert3, markert4]).addTo(map);
+
+function onClick(){
+    document.getElementById("rightsidebar").click();
+}
+
 // _____________________Layer Control_____________________
 var baseMaps = {};
 var layerControl = L.control.layers(baseMaps);
@@ -84,8 +131,7 @@ layerControl.addTo(map);
 layerControl.addOverlay(velocityLayer, "Wind");
 layerControl.addOverlay(idwPM10Layer, "Feinstaub - PM 10");
 layerControl.addOverlay(idwPM2_5Layer, "Feinstaub - PM 2.5");
-
-
+layerControl.addOverlay(pmmarkers, "Feinstaub Messstationen");
 
 // Example how to get data from the server
 getText("http://localhost:8080/PMStations");

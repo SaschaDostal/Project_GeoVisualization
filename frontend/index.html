@@ -45,15 +45,15 @@
                         <a class="nav-link active" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom"
                             aria-controls="offcanvasBottom" href="#">Allgemeine Informationen</a>
                     </li>
-                    <button class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
-                        aria-controls="offcanvasRight">Rechte Info-Sidebar</button>
+                    <button class="invisible" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+                        aria-controls="offcanvasRight" id="rightsidebar"></button>
                 </ul>
                 <span class="navbar-text">
                     &nbsp;Tag:&nbsp;
                 </span>
                 <div class="form-group">
                     <select class="form-control" id="selectDay">
-                        <option>Tag 1</option>
+                        <option>01.01.2021</option>
                     </select>
                 </div>
                 <span class="navbar-text">
@@ -108,7 +108,7 @@
     <!--Bootstrap Off Canvas Right-->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header">
-            <h5 id="offcanvasRightLabel">Sensor Informationen</h5>
+            <h5 id="offcanvasRightLabel">PM-Stations Informationen</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
@@ -136,9 +136,9 @@
     <!--Testdata-->
     <script src="test_data.js"></script>
 
-    <!--Map Creation, Layers, Buttons-->
+    <!--Map and general frontend scripts-->
     <script src="map.js"></script>
-    <script src="buttons.js"></script>
+    <script src="time.js"></script>
 
     <!--Apex Charts-->
     <script src="chart_1.js"></script>
