@@ -1,13 +1,20 @@
 // ______________________Map Creation______________________
-var map = L.map('mapid').setView([48.782, 9.18], 12);
+var map = L.map('mapid', { zoomControl: false, maxBounds: [
+    //south west
+    [48.7, 9.4],
+    //north east
+    [48.9, 9.0]
+    ], }).setView([48.782, 9.18], 12);
 var OpenStreetMap_DE = L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
-    maxZoom: 18,
+    maxZoom: 15,
+    minZoom: 12,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 });
 var CartoDB_Positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
     subdomains: 'abcd',
-    maxZoom: 19
+    maxZoom: 15,
+    minZoom: 12,
 });
 CartoDB_Positron.addTo(map);
 
@@ -16,7 +23,7 @@ var legend = L.control({ position: 'bottomright' });
 legend.onAdd = function (map) {
     var colors = ["#ffffff", "#fee6ce", "#fdae6b", "#f16913", "#a63603", "#7f2704"];
     var div = L.DomUtil.create('div', 'legend');
-    div.style.backgroundColor = "white";
+    div.style.backgroundColor = "rgba(255,255,255,0.7)";
     labels = ['<b>&nbsp;Feinstaubwerte:</b>'];
     categories = ['0 µg/m³', '240 µg/m³', '480 µg/m³', '720 µg/m³', '960 µg/m³', '1200 µg/m³'];
     for (var i = categories.length - 1; i >= 0; i--) {
@@ -28,6 +35,17 @@ legend.onAdd = function (map) {
     return div;
 };
 legend.addTo(map);
+
+// _______________________Weather/Rain________________________
+var rain = L.control({ position: 'topleft' });
+rain.onAdd = function (map) {
+    var div = L.DomUtil.create('div', 'rain');
+    div.style.backgroundColor = "transparent";
+    // Icons made by BZZRINCANTATION from https://www.flaticon.com/
+    div.innerHTML = '<img src="resources/sunny.png" alt="weather" style="width:100px;height:100px;">';
+    return div;
+};
+rain.addTo(map);
 
 // ______________________Wind Layer______________________
 var velocityLayer = L.velocityLayer({
@@ -79,8 +97,8 @@ var idwPM2_5Layer = L.idwLayer(idwData2,
 // ____________________PM Station Marker____________________
 
 var pmicon = L.icon({
-    // Icons made by https://www.flaticon.com/authors/victoruler from https://www.flaticon.com/
-    iconUrl: 'resources/pmcloud.png',
+    // Icons made by https://www.flaticon.com/authors/vectorsmarket15 from https://www.flaticon.com/
+    iconUrl: 'resources/pm.png',
     iconSize: [32, 32],
     iconAnchor: [0, 16]
 });
