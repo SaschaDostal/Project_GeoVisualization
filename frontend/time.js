@@ -2,16 +2,10 @@ function setTime(){
     var day = document.getElementById("selectDay");
     var hour = document.getElementById("selectHour");
     var min = document.getElementById("selectMin");
-    
-    if(hour.value == "00"){
-        document.getElementById("rain_img").src="resources/rainy.png";
-        document.getElementById("rain_div").innerHTML = "<b>&nbsp;Niederschlag in den letzten 10 Min.: 0.12 mm</b>";
-        idwPM10Layer.data=idwData2;
-        //map.removeLayer(L.geoJson);
-    } else {
-        document.getElementById("rain_img").src="resources/sunny.png";
-        document.getElementById("rain_div").innerHTML = "<b>&nbsp;Niederschlag in den letzten 10 Min.: 0.00 mm</b>";
-    }
+
+    var tstamp = day.value.slice(6) + day.value.slice(3, 5)
+        + day.value.slice(0, 2) + hour.value + min.value;
+    updatePrecipitation(tstamp)
 
     // _____________________redraw PM10 Layer_____________________
     map.removeLayer(idwPM10Layer);
@@ -33,8 +27,21 @@ function setTime(){
             }
         }).addTo(map);
     layerControl.addOverlay(idwPM10Layer, "Feinstaub - PM 10");
-    
-    alert("Update für Zeit: " + day.value + " - " + hour.value + ":" + min.value);
 
     // Icons made by berkahicon from https://www.flaticon.com/
 }
+
+async function updatePrecipitation(tstamp) {
+    let x = await fetch("http://localhost:8080/precipitation?tstamp=" + tstamp);
+    let y = await x.text();
+    let z = JSON.parse(y)
+
+    document.getElementById("rain_div").innerHTML = "<b>&nbsp;Niederschlag in den letzten 10 Min.: " + z.precipitation[0].mm.toFixed(2) 
+        + " mm</b><br><b>&nbsp;Regendauer in den letzten 10 Min.: " + z.precipitation[0].duration + " Min.</b>";
+    if(z.precipitation[0].raining == "1"){
+        document.getElementById("rain_img").src="resources/rainy.png";
+    } else {
+        document.getElementById("rain_img").src="resources/sunny.png";
+    }
+}
+updatePrecipitation("202101010000");

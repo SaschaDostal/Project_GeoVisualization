@@ -42,7 +42,7 @@ rain.onAdd = function (map) {
     var div = L.DomUtil.create('div', 'rain');
     div.style.backgroundColor = "transparent";
     // Icons made by BZZRINCANTATION from https://www.flaticon.com/
-    div.innerHTML = '<div id="rain_div"><b>&nbsp;Niederschlag in den letzten 10 Min.: 0.00 mm</b></div><img id="rain_img" src="resources/sunny.png" alt="weather" style="width:100px;height:100px;">';
+    div.innerHTML = '<div id="rain_div"></div><img id="rain_img" alt="weather" style="width:100px;height:100px;">';
     return div;
 };
 rain.addTo(map);
@@ -152,10 +152,10 @@ layerControl.addOverlay(idwPM2_5Layer, "Feinstaub - PM2.5");
 layerControl.addOverlay(idwPM10Layer, "Feinstaub - PM10");
 
 // Example how to get data from the server
-getText("http://localhost:8080/PMStations");
+getPMStations();
 
-async function getText(file) {
-    let x = await fetch(file);
+async function getPMStations() {
+    let x = await fetch("http://localhost:8080/PMStations");
     let y = await x.text();
     document.getElementById("test").innerHTML = y;
 }
