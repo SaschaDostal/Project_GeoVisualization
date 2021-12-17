@@ -1,7 +1,7 @@
 // ______________________Map Creation______________________
 var map = L.map('mapid', { zoomControl: false, maxBounds: [
     //south west
-    [48.7, 9.4],
+    [48.65, 9.4],
     //north east
     [48.9, 9.0]
     ], }).setView([48.782, 9.18], 12);
@@ -42,7 +42,7 @@ rain.onAdd = function (map) {
     var div = L.DomUtil.create('div', 'rain');
     div.style.backgroundColor = "transparent";
     // Icons made by BZZRINCANTATION from https://www.flaticon.com/
-    div.innerHTML = '<img src="resources/sunny.png" alt="weather" style="width:100px;height:100px;">';
+    div.innerHTML = '<div id="rain_div"><b>&nbsp;Niederschlag in den letzten 10 Min.: 0.00 mm</b></div><img id="rain_img" src="resources/sunny.png" alt="weather" style="width:100px;height:100px;">';
     return div;
 };
 rain.addTo(map);
@@ -77,7 +77,7 @@ var idwPM10Layer = L.idwLayer(idwData,
         }
     }).addTo(map);
 
-var idwPM2_5Layer = L.idwLayer(idwData2,
+var idwPM2_5Layer = L.idwLayer(idwData,
     {
         opacity: 0.25, cellSize: 20, exp: 2, max: 1200, gradient: {
             0.0: '#ffffff',
@@ -147,9 +147,9 @@ var layerControl = L.control.layers(baseMaps);
 layerControl.addTo(map);
 
 layerControl.addOverlay(velocityLayer, "Wind");
-layerControl.addOverlay(idwPM10Layer, "Feinstaub - PM 10");
-layerControl.addOverlay(idwPM2_5Layer, "Feinstaub - PM 2.5");
 layerControl.addOverlay(pmmarkers, "Feinstaub Messstationen");
+layerControl.addOverlay(idwPM2_5Layer, "Feinstaub - PM2.5");
+layerControl.addOverlay(idwPM10Layer, "Feinstaub - PM10");
 
 // Example how to get data from the server
 getText("http://localhost:8080/PMStations");
