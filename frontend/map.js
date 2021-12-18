@@ -21,7 +21,7 @@ CartoDB_Positron.addTo(map);
 // _______________________Legende________________________
 var legend = L.control({ position: 'bottomright' });
 legend.onAdd = function (map) {
-    var colors = ["#ffffff", "#fee6ce", "#fdae6b", "#f16913", "#a63603", "#7f2704"];
+    var colors = ["#ffffff", "#deebf7", "#9ecae1", "#4292c6", "#08519c", "#08306b"];
     var div = L.DomUtil.create('div', 'legend');
     div.style.backgroundColor = "rgba(255,255,255,0.7)";
     labels = ['<b>&nbsp;Feinstaubwerte:</b>'];
@@ -74,7 +74,7 @@ var idwPM10Layer = L.idwLayer(idwData,
             0.9: '#7f2704',
             1.0: '#7f2704'
         }
-    }).addTo(map);
+    })
 
 var idwPM2_5Layer = L.idwLayer(idwData,
     {
@@ -91,7 +91,7 @@ var idwPM2_5Layer = L.idwLayer(idwData,
             0.9: '#08306b',
             1.0: '#08306b'
         }
-    })
+    }).addTo(map);
 
 // ____________________PM Station Marker____________________
 

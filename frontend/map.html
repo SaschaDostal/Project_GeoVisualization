@@ -1,0 +1,152 @@
+<html>
+
+<head>
+    <title>Visuelle Analyse Luftqualität_Stuttgart</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Leaflet-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="">
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+    <!--ApexCharts-->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <!--Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <style>
+        #mapid {
+            height: 92%;
+        }
+        #circle {
+            height: 15px;
+            width: 15px;
+            border-radius: 10px;
+        }
+        body {
+            background-color: #3b3b3b;
+        }
+    </style>
+
+    <!--Bootstrap Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-dark " style="background-color:#3b3b3b;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="./resources/wind.svg" alt="" width="30" height="30" class="d-inline-block align-text-top">
+                Luftqualität_Stuttgart</a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom"
+                            aria-controls="offcanvasBottom" href="#">Allgemeine Informationen</a>
+                    </li>
+                    <button class="invisible" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+                        aria-controls="offcanvasRight" id="rightsidebar"></button>
+                </ul>
+                <span class="navbar-text">
+                    &nbsp;Tag:&nbsp;
+                </span>
+                <div class="form-group">
+                    <select class="form-control" id="selectDay">
+                        <option>01.01.2021</option>
+                    </select>
+                </div>
+                <span class="navbar-text">
+                    &nbsp;Stunde:&nbsp;
+                </span>
+                <div class="form-group">
+                    <select class="form-control" id="selectHour">
+                        <option>00</option>
+                        <option>01</option>
+                        <option>02</option>
+                        <option>03</option>
+                        <option>04</option>
+                        <option>05</option>
+                        <option>06</option>
+                        <option>07</option>
+                        <option>08</option>
+                        <option>09</option>
+                        <option>10</option>
+                        <option>11</option>
+                        <option>12</option>
+                        <option>13</option>
+                        <option>14</option>
+                        <option>15</option>
+                        <option>16</option>
+                        <option>17</option>
+                        <option>18</option>
+                        <option>19</option>
+                        <option>20</option>
+                        <option>21</option>
+                        <option>22</option>
+                        <option>23</option>
+                    </select>
+                </div>
+                <span class="navbar-text">
+                    &nbsp;Minute:&nbsp;
+                </span>
+                <div class="form-group">
+                    <select class="form-control" id="selectMin">
+                        <option>00</option>
+                        <option>10</option>
+                        <option>20</option>
+                        <option>30</option>
+                        <option>40</option>
+                        <option>50</option>
+                    </select>
+                    
+                </div>
+                <div>&nbsp;&nbsp;</div>
+                <button onclick="setTime()" class="btn btn-primary" type="submit">Auswählen</button>
+            </div>
+        </div>
+    </nav>
+
+    <!--Bootstrap Off Canvas Right-->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header">
+            <h5 id="offcanvasRightLabel">PM-Stations Informationen</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            Infos zu einem bestimmten Ort/Sensor.
+            <div id="chart_1" style="height:50px; width:100%;"></div>
+        </div>
+    </div>
+    <!--Bootstrap Off Canvas Bottom-->
+    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+        id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasBottomLabel">Allgemeine Informationen</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body small">
+            Falls der Server an ist werden hier JSON-Testdaten abgebildet:
+            <p id="test">Server ist aus oder es gab einen Fehler.</p>
+        </div>
+    </div>
+    <div id="mapid"></div>
+    <link rel="stylesheet" href="dist/leaflet-velocity.css" />
+    <script src="dist/leaflet-velocity.js"></script>
+    <script src="dist/leaflet-idw.js"> </script>
+
+    <!--Testdata-->
+    <script src="test_data.js"></script>
+
+    <!--Map and general frontend scripts-->
+    <script src="map.js"></script>
+    <script src="time.js"></script>
+
+    <!--Apex Charts-->
+    <script src="chart_1.js"></script>
+</body>
+
+</html>

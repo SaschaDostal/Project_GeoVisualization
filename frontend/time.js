@@ -26,7 +26,7 @@ function setTime(){
                 0.9: '#7f2704',
                 1.0: '#7f2704'
             }
-        }).addTo(map);
+        })
     layerControl.addOverlay(idwPM10Layer, "Feinstaub - PM 10");
 
     // Icons made by berkahicon from https://www.flaticon.com/
