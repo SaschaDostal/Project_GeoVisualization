@@ -17,7 +17,7 @@ public class PrecipitationController {
 	
 	// example uri: http://localhost:8080/precipitation?tstamp=202111041210
 	@RequestMapping("/precipitation")
-	public String getAllPMStations(@RequestParam String tstamp) throws SQLException {
+	public String getPrecipitation(@RequestParam String tstamp) throws SQLException {
 		Connection con = DriverManager.
 	            getConnection("jdbc:h2:file:./database", "sa", "");
 	    String query = "SELECT * FROM precipitation WHERE tstamp LIKE '" + tstamp + "'";
