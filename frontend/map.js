@@ -55,7 +55,6 @@ var velocityLayer = L.velocityLayer({
         position: "bottomleft",
         emptyString: "Keine Winddaten verfügbar."
     },
-    data: winddata,
     maxVelocity: 15
 }).addTo(map);
 

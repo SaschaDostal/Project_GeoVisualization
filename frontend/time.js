@@ -5,7 +5,8 @@ function setTime(){
 
     var tstamp = day.value.slice(6) + day.value.slice(3, 5)
         + day.value.slice(0, 2) + hour.value + min.value;
-    updatePrecipitation(tstamp)
+    updatePrecipitation(tstamp);
+    updateWind(tstamp);
 
     // _____________________redraw PM10 Layer_____________________
     map.removeLayer(idwPM10Layer);
@@ -45,3 +46,84 @@ async function updatePrecipitation(tstamp) {
     }
 }
 updatePrecipitation("202101010000");
+
+async function updateWind(tstamp) {
+    let i = await fetch("http://localhost:8080/windVector?tstamp=" + tstamp);
+    let j = await i.text();
+    let z = JSON.parse(j)
+
+    var x_component = z.x;
+    var y_component = z.y;
+
+    var winddata = [{
+        "header": { "discipline": 0,
+        "parameterCategory": 2,
+        "parameterNumber": 2,
+        "parameterNumberName": "U-component_of_wind",
+        "parameterUnit": "m.s-1",
+        "genProcessType": 2,
+        "forecastTime": 0,
+        "surface1Type": 103,
+        "surface1Value": 10.0,
+        "surface2Value": 0.0,
+        "gridDefinitionTemplate": 0,
+        "numberPoints": 2,
+        "resolution": 48,
+        "winds": "true",
+        "scanMode": 0,
+        "nx": 2,
+        "ny": 2,
+        "basicAngle": 0,
+        "subDivisions": 0,
+        "lo1": 8.6346,
+        "la1": 48.9304,
+        "lo2": 9.6849,
+        "la2": 48.6239,
+        "dx": 1.0,
+        "dy": 1.0 },
+        "data": [x_component, x_component, x_component, x_component]
+    }, {
+        "header": { "discipline": 0,
+        "parameterCategory": 2,
+        "parameterNumber": 3,
+        "parameterNumberName": "V-component_of_wind",
+        "parameterUnit": "m.s-1",
+        "genProcessType": 2,
+        "forecastTime": 0,
+        "surface1Type": 103,
+        "surface1Value": 10.0,
+        "surface2Type": 255,
+        "surface2Value": 0.0,
+        "gridDefinitionTemplate": 0,
+        "numberPoints": 2,
+        "shape": 6,
+        "resolution": 48,
+        "winds": "true",
+        "scanMode": 0,
+        "nx": 2,
+        "ny": 2,
+        "basicAngle": 0,
+        "subDivisions": 0,
+        "lo1": 8.6346,
+        "la1": 48.9304,
+        "lo2": 9.6849,
+        "la2": 48.6239,
+        "dx": 1.0,
+        "dy": 1.0 },
+        "data": [y_component, y_component, y_component, y_component]
+    }];
+    map.removeLayer(velocityLayer);
+    layerControl.removeLayer(velocityLayer);
+    velocityLayer = L.velocityLayer({
+        displayValues: true,
+        displayOptions: {
+            velocityType: "Wind",
+            position: "bottomleft",
+            emptyString: "Keine Winddaten verfügbar."
+        },
+        data: winddata,
+        maxVelocity: 15
+    }).addTo(map);
+    layerControl.addOverlay(velocityLayer, "Wind");
+}
+updateWind("202101010000");
