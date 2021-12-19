@@ -31,18 +31,6 @@ public class ParticulateMatterController {
 		return jo.toString();
 	}
 	
-	@RequestMapping("/set")
-	public String setTest(@RequestParam int id) throws SQLException {
-		Connection con = DriverManager.
-	            getConnection("jdbc:h2:file:./database", "sa", "");
-	    String query = "insert into PM_SENSORS values (" + id + ", " + id + ".2, " + id + ".3)";
-	    Statement stmt = con.createStatement();
-	    stmt.execute(query);
-		con.close();
-		
-		return "ID: " + id + ", lon: " + pmrepo.findById((long) id).get().getLon();
-	}
-	
 	@RequestMapping("/PMStations")
 	public String getAllPMStations() throws SQLException {
 		Connection con = DriverManager.
@@ -62,6 +50,40 @@ public class ParticulateMatterController {
 	    json.put("pmstations", ja);
 	    con.close();
 	    
+		return json.toString();
+	}
+	
+	//2021-01-01T00:01:00 http://localhost:8080/PMData?tstamp=2021-01-01T00:
+	@RequestMapping("/PMData")
+	public String getPMStation(@RequestParam String tstamp) throws SQLException {
+		Connection con = DriverManager.
+	            getConnection("jdbc:h2:file:./database", "sa", "");
+	    String query = "SELECT * FROM PM_SENSORS";
+	    Statement stmt = con.createStatement();
+	    ResultSet rs = stmt.executeQuery(query);
+	    
+	    JSONObject json = new  JSONObject();
+	    JSONArray ja = new JSONArray();
+	    
+	    while (rs.next()) {
+	    	JSONObject jo = new JSONObject();
+	    	try {
+	    		String query2 = "SELECT * FROM PM_VALUES, PM_SENSORS WHERE PM_VALUES.ID=PM_SENSORS.ID AND TIME_STAMP LIKE '" + tstamp + "%' AND PM_VALUES.ID = " + rs.getInt("id");
+	    		Statement stmt2 = con.createStatement();
+	    		ResultSet rs2 = stmt2.executeQuery(query2);
+	    		rs2.next();
+	    		jo.put("ID", rs2.getString("ID"));
+	    		jo.put("P1", rs2.getFloat("P1"));
+	    		jo.put("P2", rs2.getFloat("P2"));
+	    		jo.put("LAT", rs2.getFloat("LAT"));
+	    		jo.put("LON", rs2.getFloat("LON"));
+	    		ja.put(jo);
+	    	} catch (Exception e) {
+	    		System.out.println("No entry found for: " + rs.getInt("id") + " - " + tstamp);
+	    	}
+	    }
+	    json.put("sensors", ja);
+	    con.close();
 		return json.toString();
 	}
 	

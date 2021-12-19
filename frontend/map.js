@@ -27,7 +27,7 @@ legend.onAdd = function (map) {
     var div = L.DomUtil.create('div', 'legend');
     div.style.backgroundColor = "rgba(255,255,255,0.7)";
     labels = ['<b>&nbsp;Feinstaubwerte:</b>'];
-    categories = ['0 µg/m³', '240 µg/m³', '480 µg/m³', '720 µg/m³', '960 µg/m³', '1200 µg/m³'];
+    categories = ['0 µg/m³', '10 µg/m³', '20 µg/m³', '30 µg/m³', '40 µg/m³', '≥50 µg/m³'];
     for (var i = categories.length - 1; i >= 0; i--) {
         div.innerHTML +=
             labels.push(
@@ -61,9 +61,9 @@ var velocityLayer = L.velocityLayer({
 }).addTo(map);
 
 // _________________Leaflet IDW PM Layer__________________
-var idwPM10Layer = L.idwLayer(idwData,
+var idwPM10Layer = L.idwLayer([[0,0,0]],
     {
-        opacity: 0.25, cellSize: 20, exp: 2, max: 1200, gradient: {
+        opacity: 0.25, cellSize: 20, exp: 2, max: 50, gradient: {
             0.0: '#ffffff',
             0.1: '#f7fbff',
             0.2: '#deebf7',
@@ -76,11 +76,11 @@ var idwPM10Layer = L.idwLayer(idwData,
             0.9: '#08306b',
             1.0: '#08306b'
         }
-    })
+    }).addTo(map);
 
-var idwPM2_5Layer = L.idwLayer(idwData,
+var idwPM2_5Layer = L.idwLayer([[0,0,0]],
     {
-        opacity: 0.25, cellSize: 20, exp: 2, max: 1200, gradient: {
+        opacity: 0.25, cellSize: 20, exp: 2, max: 50, gradient: {
             0.0: '#ffffff',
             0.1: '#f7fbff',
             0.2: '#deebf7',
@@ -109,7 +109,7 @@ layerControl.addOverlay(idwPM10Layer, "Feinstaub - PM10");
 var pmicon = L.icon({
     // Icons made by https://www.flaticon.com/authors/vectorsmarket15 from https://www.flaticon.com/
     iconUrl: 'resources/pm.png',
-    iconSize: [32, 32],
+    iconSize: [20, 20],
     iconAnchor: [0, 16]
 });
 
