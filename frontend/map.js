@@ -1,10 +1,12 @@
 // ______________________Map Creation______________________
-var map = L.map('mapid', { zoomControl: false, maxBounds: [
-    //south west
-    [48.65, 9.4],
-    //north east
-    [48.9, 9.0]
-    ], }).setView([48.782, 9.18], 12);
+var map = L.map('mapid', {
+    zoomControl: false, maxBounds: [
+        //south west
+        [48.65, 9.4],
+        //north east
+        [48.9, 9.0]
+    ],
+}).setView([48.782, 9.18], 12);
 var OpenStreetMap_DE = L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
     maxZoom: 15,
     minZoom: 12,
@@ -63,16 +65,16 @@ var idwPM10Layer = L.idwLayer(idwData,
     {
         opacity: 0.25, cellSize: 20, exp: 2, max: 1200, gradient: {
             0.0: '#ffffff',
-            0.1: '#fff5eb',
-            0.2: '#fee6ce',
-            0.3: '#fdd0a2',
-            0.4: '#fdae6b',
-            0.5: '#fd8d3c',
-            0.6: '#f16913',
-            0.7: '#d94801',
-            0.8: '#a63603',
-            0.9: '#7f2704',
-            1.0: '#7f2704'
+            0.1: '#f7fbff',
+            0.2: '#deebf7',
+            0.3: '#c6dbef',
+            0.4: '#9ecae1',
+            0.5: '#6baed6',
+            0.6: '#4292c6',
+            0.7: '#2171b5',
+            0.8: '#08519c',
+            0.9: '#08306b',
+            1.0: '#08306b'
         }
     })
 
@@ -93,6 +95,15 @@ var idwPM2_5Layer = L.idwLayer(idwData,
         }
     }).addTo(map);
 
+// _____________________Layer Control_____________________
+var baseMaps = {};
+var layerControl = L.control.layers(baseMaps);
+layerControl.addTo(map);
+
+layerControl.addOverlay(velocityLayer, "Wind");
+layerControl.addOverlay(idwPM2_5Layer, "Feinstaub - PM2.5");
+layerControl.addOverlay(idwPM10Layer, "Feinstaub - PM10");
+
 // ____________________PM Station Marker____________________
 
 var pmicon = L.icon({
@@ -102,60 +113,32 @@ var pmicon = L.icon({
     iconAnchor: [0, 16]
 });
 
-var markert1 = L.marker(
-    [48.77069, 9.18207],
-    {
-        icon: pmicon,
-        title: 'PM Station Test'
-    }
-).on('click', onClick)
+drawPMStations()
 
-var markert2 = L.marker(
-    [48.77336, 9.17313],
-    {
-        icon: pmicon,
-        title: 'PM Station Test'
-    }
-).on('click', onClick)
-
-var markert3 = L.marker(
-    [48.76944, 9.15423],
-    {
-        icon: pmicon,
-        title: 'PM Station Test'
-    }
-).on('click', onClick)
-
-var markert4 = L.marker(
-    [48.78688, 9.17915],
-    {
-        icon: pmicon,
-        title: 'PM Station Test'
-    }
-).on('click', onClick)
-
-var pmmarkers = L.layerGroup([markert1, markert2, markert3, markert4]).addTo(map);
-
-function onClick(){
-    document.getElementById("rightsidebar").click();
-}
-
-// _____________________Layer Control_____________________
-var baseMaps = {};
-var layerControl = L.control.layers(baseMaps);
-layerControl.addTo(map);
-
-layerControl.addOverlay(velocityLayer, "Wind");
-layerControl.addOverlay(pmmarkers, "Feinstaub Messstationen");
-layerControl.addOverlay(idwPM2_5Layer, "Feinstaub - PM2.5");
-layerControl.addOverlay(idwPM10Layer, "Feinstaub - PM10");
-
-// Example how to get data from the server
-getPMStations();
-
-async function getPMStations() {
+async function drawPMStations() {
     let x = await fetch("http://localhost:8080/PMStations");
     let y = await x.text();
     document.getElementById("test").innerHTML = y;
+    let stations = JSON.parse(y)
+
+    markers = []
+
+    for (const element of stations.pmstations) {
+        var marker = L.marker(
+            [element.lat, element.lon],
+            {
+                icon: pmicon,
+                title: 'PM Station: ' + element.id
+            }
+        ).on('click', L.bind(onClick, null, element.id))
+        markers.push(marker)
+    }
+
+    var pmmarkers = L.layerGroup(markers).addTo(map);
+    layerControl.addOverlay(pmmarkers, "Feinstaub Messstationen");
 }
 
+function onClick(id) {
+    document.getElementById("rightsidebar").click();
+    document.getElementById("offcanvasRightLabel").innerText = "Informationen zu PM-Station " + id;
+}

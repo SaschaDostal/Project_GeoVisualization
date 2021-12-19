@@ -49,6 +49,7 @@ public class ParticulateMatterController {
 	            getConnection("jdbc:h2:file:./database", "sa", "");
 	    String query = "SELECT * FROM PM_SENSORS";
 	    Statement stmt = con.createStatement();
+	    JSONObject json = new JSONObject();
 	    ResultSet rs = stmt.executeQuery(query);
 	    JSONArray ja = new JSONArray();
 	    while (rs.next()) {
@@ -58,10 +59,10 @@ public class ParticulateMatterController {
 			jo.put("lat", rs.getFloat("lat"));
 			ja.put(jo);
 	    }
-	    
+	    json.put("pmstations", ja);
 	    con.close();
 	    
-		return ja.toString();
+		return json.toString();
 	}
 	
 }
