@@ -127,7 +127,6 @@ async function updateParticulateMatter(tstamp) {
     for (const element of z.sensors) {
         dataPM10.push([element.LAT, element.LON, element.P1]);
         dataPM25.push([element.LAT, element.LON, element.P2]);
-        console.log([element.LAT, element.LON, element.P1])
     }
 
     // _____________________redraw PM2.5 Layer_____________________
@@ -148,7 +147,7 @@ async function updateParticulateMatter(tstamp) {
                 0.9: '#08306b',
                 1.0: '#08306b'
             }
-        }).addTo(map);
+        })
     layerControl.addOverlay(idwPM2_5Layer, "Feinstaub - PM2.5");
 
     // _____________________redraw PM10 Layer_____________________

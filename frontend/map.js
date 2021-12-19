@@ -93,7 +93,7 @@ var idwPM2_5Layer = L.idwLayer([[0,0,0]],
             0.9: '#08306b',
             1.0: '#08306b'
         }
-    }).addTo(map);
+    })
 
 // _____________________Layer Control_____________________
 var baseMaps = {};
