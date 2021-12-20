@@ -8,9 +8,6 @@ function setTime() {
     updatePrecipitation(tstamp);
     updateWind(tstamp);
     updateParticulateMatter(tstamp);
-
-
-    // Icons made by berkahicon from https://www.flaticon.com/
 }
 
 async function updatePrecipitation(tstamp) {
@@ -31,6 +28,7 @@ async function updatePrecipitation(tstamp) {
     } else {
         document.getElementById("rain_img").src = "resources/rain0_" + day + ".png";
     }
+    document.getElementById("rain_img").style.visibility = "visible";
 }
 updatePrecipitation("202101010000");
 
@@ -120,7 +118,7 @@ async function updateWind(tstamp) {
 updateWind("202101010000");
 
 async function updateParticulateMatter(tstamp) {
-    // 202006120000 to 2021-01-01T00:01:00
+    // 202101010000 to 2021-01-01T00:01:00
     tstamp = tstamp.slice(0, 4) + "-" + tstamp.slice(4, 6) + "-" + tstamp.slice(6, 8) + "T" + tstamp.slice(8, 10) + ":" + tstamp.slice(10, 11);
 
     let x = await fetch("http://localhost:8080/PMData?tstamp=" + tstamp);

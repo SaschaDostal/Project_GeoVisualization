@@ -492,7 +492,7 @@ var Windy = function Windy(params) {
   var FRAME_TIME = 1000 / FRAME_RATE; // desired frames per second
 
   var OPACITY = 0.97;
-  var defaulColorScale = ["#737373", "#737373", "#525252", "#525252", "#252525", "#000000"];
+  var defaulColorScale = ["#737373", "#737373", "#525252", "#525252", "#252525"];
   var colorScale = params.colorScale || defaulColorScale;
   var NULL_WIND_VECTOR = [NaN, NaN, null]; // singleton for no wind in the form: [u, v, magnitude]
 
