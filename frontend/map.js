@@ -9,16 +9,18 @@ var map = L.map('mapid', {
 }).setView([48.782, 9.18], 12);
 var OpenStreetMap_DE = L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
     maxZoom: 15,
-    minZoom: 12,
+    minZoom: 11,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 });
 var CartoDB_Positron = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
     subdomains: 'abcd',
     maxZoom: 15,
-    minZoom: 12,
+    minZoom: 11,
 });
 CartoDB_Positron.addTo(map);
+
+L.geoJSON(stuttgart_geo, {"fillOpacity": .5, color:'#7d7d7d', stroke:false}).addTo(map);
 
 // _______________________Legende________________________
 var legend = L.control({ position: 'bottomright' });
