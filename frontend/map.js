@@ -25,13 +25,14 @@ var legend = L.control({ position: 'bottomright' });
 legend.onAdd = function (map) {
     var colors = ["#ffffff", "#deebf7", "#9ecae1", "#4292c6", "#08519c", "#08306b"];
     var div = L.DomUtil.create('div', 'legend');
-    div.style.backgroundColor = "rgba(255,255,255,0.7)";
-    labels = ['<b>&nbsp;Feinstaubwerte:</b>'];
+    div.style.backgroundColor = "rgba(255,255,255,transparent)";
+    labels = ['<div><div style="float:left">&nbsp;<img src="./resources/pm.png" width="18" height="18"><b style ="font-size:14px;">&nbsp;Feinstaubmessstation&nbsp;</b><br></br></div>'];
+    div.innerHTML += labels.push('<b style ="font-size:14px;">&nbsp;Feinstaubwerte:</b>');
     categories = ['0 µg/m³', '10 µg/m³', '20 µg/m³', '30 µg/m³', '40 µg/m³', '≥50 µg/m³'];
     for (var i = categories.length - 1; i >= 0; i--) {
         div.innerHTML +=
             labels.push(
-                '<div><div style="float:left">&nbsp;</div><div id="circle" style="background:' + colors[i] + ';float:left"></div>&nbsp;' + categories[i] + '&nbsp;</div>');
+                '<div><div style="float:left">&nbsp;</div><div id="circle" style="background:' + colors[i] + ';float:left"></div><b style ="font-size:14px;">&nbsp;' + categories[i] + '&nbsp;</b></div>');
     }
     div.innerHTML = labels.join('<br>');
     return div;
@@ -107,7 +108,6 @@ layerControl.addOverlay(idwPM10Layer, "Feinstaub - PM10");
 // ____________________PM Station Marker____________________
 
 var pmicon = L.icon({
-    // Icons made by https://www.flaticon.com/authors/vectorsmarket15 from https://www.flaticon.com/
     iconUrl: 'resources/pm.png',
     iconSize: [20, 20],
     iconAnchor: [0, 16]

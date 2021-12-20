@@ -18,12 +18,18 @@ async function updatePrecipitation(tstamp) {
     let y = await x.text();
     let z = JSON.parse(y)
 
-    document.getElementById("rain_div").innerHTML = "<b>&nbsp;Niederschlag in den letzten 10 Min.: " + z.precipitation[0].mm.toFixed(2)
-        + " mm</b><br><b>&nbsp;Regendauer in den letzten 10 Min.: " + z.precipitation[0].duration + " Min.</b>";
-    if (z.precipitation[0].raining == "1") {
-        document.getElementById("rain_img").src = "resources/rainy.png";
+    document.getElementById("rain_div").innerHTML = '<b style ="font-size:14px;">&nbsp;Niederschlag in den letzten 10 Min.: ' + z.precipitation[0].mm.toFixed(2)
+        + ' mm</b><br><b style ="font-size:14px;">&nbsp;Regendauer in den letzten 10 Min.: ' + z.precipitation[0].duration + ' Min.</b>';
+    hour_of_day = parseInt(tstamp.slice(8,10))
+    if (hour_of_day < 6 || hour_of_day > 18){
+        var day = 0;
     } else {
-        document.getElementById("rain_img").src = "resources/sunny.png";
+        var day = 1;
+    }
+    if (z.precipitation[0].raining == "1") {
+        document.getElementById("rain_img").src = "resources/rain1_" + day + ".png";
+    } else {
+        document.getElementById("rain_img").src = "resources/rain0_" + day + ".png";
     }
 }
 updatePrecipitation("202101010000");
@@ -134,7 +140,7 @@ async function updateParticulateMatter(tstamp) {
     layerControl.removeLayer(idwPM2_5Layer);
     idwPM2_5Layer = L.idwLayer(dataPM25,
         {
-            opacity: 0.25, cellSize: 20, exp: 2, max: 50, gradient: {
+            opacity: 0.35, cellSize: 20, exp: 2, max: 50, gradient: {
                 0.0: '#ffffff',
                 0.1: '#f7fbff',
                 0.2: '#deebf7',
@@ -155,7 +161,7 @@ async function updateParticulateMatter(tstamp) {
     layerControl.removeLayer(idwPM10Layer);
     idwPM10Layer = L.idwLayer(dataPM10,
         {
-            opacity: 0.25, cellSize: 20, exp: 2, max: 50, gradient: {
+            opacity: 0.35, cellSize: 20, exp: 2, max: 50, gradient: {
                 0.0: '#ffffff',
                 0.1: '#f7fbff',
                 0.2: '#deebf7',
