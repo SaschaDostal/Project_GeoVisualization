@@ -120,7 +120,6 @@ drawPMStations()
 async function drawPMStations() {
     let x = await fetch("http://localhost:8080/PMStations");
     let y = await x.text();
-    document.getElementById("test").innerHTML = y;
     let stations = JSON.parse(y)
 
     markers = []
@@ -142,5 +141,7 @@ async function drawPMStations() {
 
 function onClick(id) {
     document.getElementById("rightsidebar").click();
-    document.getElementById("offcanvasRightLabel").innerText = "Informationen zu PM-Station " + id;
+    document.getElementById("offcanvasRightLabel").innerText = "Informationen zur PM-Station " + id;
+    document.getElementById("chart_1").innerText = "";
+    drawDiagram1(id);
 }

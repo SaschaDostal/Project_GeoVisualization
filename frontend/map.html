@@ -52,8 +52,8 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom"
-                            aria-controls="offcanvasBottom" href="#">Allgemeine Informationen</a>
+                        <a class="nav-link active" data-bs-toggle="offcanvas" data-bs-target="#offcanvasLeft"
+                            aria-controls="offcanvasLeft" href="#">Allgemeine Informationen</a>
                     </li>
                     <button class="invisible" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
                         aria-controls="offcanvasRight" id="rightsidebar"></button>
@@ -120,24 +120,23 @@
     <!--Bootstrap Off Canvas Right-->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header">
-            <h5 id="offcanvasRightLabel">Informationen zu PM-Station </h5>
+            <h5 id="offcanvasRightLabel">Informationen zu PM-Station</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            Infos zu einem bestimmten Ort/Sensor.
-            <div id="chart_1" style="height:50px; width:100%;"></div>
+            <h6>Feinstaub, Windstärke und Niederschlag über Zeit</h6>
+            <div id="chart_1" style="width:100%;"></div>
         </div>
     </div>
-    <!--Bootstrap Off Canvas Bottom-->
-    <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
-        id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+    <!--Bootstrap Off Canvas Left-->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasLeft" aria-labelledby="offcanvasLeftLabel">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasBottomLabel">Allgemeine Informationen</h5>
+            <h5 id="offcanvasLeftLabel">Allgemeine Informationen</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="offcanvas-body small">
-            Falls der Server an ist werden hier JSON-Testdaten abgebildet:
-            <p id="test">Server ist aus oder es gab einen Fehler.</p>
+        <div class="offcanvas-body">
+            <h6>Feinstaub, Windstärke und Niederschlag über Zeit</h6>
+            <div id="chart_0" style="width:100%;"></div>
         </div>
     </div>
     <div id="mapid"></div>
@@ -151,7 +150,8 @@
     <script src="time.js"></script>
 
     <!--Apex Charts-->
-    <script src="chart_1.js"></script>
+    <script src="diagrams/chart_0.js"></script>
+    <script src="diagrams/chart_1.js"></script>
 </body>
 
 </html>

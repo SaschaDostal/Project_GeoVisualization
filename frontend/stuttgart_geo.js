@@ -1,3 +1,4 @@
+// Original data from http://opendatalab.de/
 stuttgart_geo = { "type": "Feature",
 "properties": { "ADE": 6, "GF": 4, "BSG": 1, "RS": "081110000000",
 "AGS": "08111000",
