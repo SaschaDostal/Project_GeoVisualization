@@ -12,6 +12,11 @@ async function drawDiagram1(PMid) {
     }
 
     var options = {
+        title: {
+            text: "Verschiedene Daten über Zeit",
+            align: 'center',
+            offsetY: 20
+        },
         series: [{
             name: "Feinstaub PM10 (µg/m³)",
             data: diagramPMData10
@@ -32,7 +37,7 @@ async function drawDiagram1(PMid) {
         chart: {
             type: 'line',
             zoom: {
-                enabled: true
+                enabled: false
             },
             toolbar: {
                 show: false

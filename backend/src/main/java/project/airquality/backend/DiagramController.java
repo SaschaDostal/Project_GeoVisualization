@@ -25,7 +25,7 @@ public class DiagramController {
 		Float lastPM25 = 0.0f;
 		for(int day = 1; day <= 1; day++) {
 			for(int hour = 0; hour < 24; hour++) {
-				for(int min = 0; min < 6; min+=3) {
+				for(int min = 0; min < 6; min++) {//=3
 					JSONObject jo = new JSONObject();
 					// Format PM: 2021-01-01T00:0 Format Pr/Wi: 20210101000
 					String timestampPM = "2021-01-" + String.format("%02d", day) + "T" 
@@ -65,7 +65,7 @@ public class DiagramController {
 		JSONArray ja = new JSONArray();
 		for(int day = 1; day <= 1; day++) {
 			for(int hour = 0; hour < 24; hour++) {
-				for(int min = 0; min < 6; min+=3) {
+				for(int min = 0; min < 6; min++) {//=3
 					JSONObject jo = new JSONObject();
 					// Format PM: 2021-01-01T00:0 Format Pr/Wi: 20210101000
 					String timestampPM = "2021-01-" + String.format("%02d", day) + "T" 
