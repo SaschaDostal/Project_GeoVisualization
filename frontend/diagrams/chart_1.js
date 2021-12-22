@@ -53,7 +53,7 @@ async function drawDiagram1(PMid) {
         },
         legend: {
             tooltipHoverFormatter: function (val, opts) {
-                return val + ' - ' + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] + ''
+                return val + ' - ' + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex].toFixed(2) + ''
             }
         },
         tooltip: {

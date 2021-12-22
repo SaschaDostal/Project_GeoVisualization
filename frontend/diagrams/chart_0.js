@@ -62,7 +62,7 @@ async function drawDiagram0() {
         },
         legend: {
             tooltipHoverFormatter: function (val, opts) {
-                return val + ' - ' + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] + ''
+                return val + ' - ' + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex].toFixed(2) + ''
             }
         },
         tooltip: {
@@ -153,7 +153,7 @@ async function drawDiagram0() {
     
     var options2 = {
         title: {
-            text: "Korrelation: Wind und Feinstaub",
+            text: "Windgeschwindigkeit und Feinstaub",
             align: 'center',
             offsetY: 15
         },
@@ -185,8 +185,8 @@ async function drawDiagram0() {
         },
         legend: {
             tooltipHoverFormatter: function (val, opts) {
-                return val + ' - ' + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex].toFixed(3) + ''
-            }
+                return val + ' - ' + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex].toFixed(2) + ''
+            },
         },
         tooltip: {
             custom: function ({ series, seriesIndex, dataPointIndex, w }) {
@@ -196,7 +196,7 @@ async function drawDiagram0() {
                 enabled: true,
                 position: 'topRight',
                 offsetX: 0,
-                offsetY: 0,
+                
             }
         },
         markers: {
@@ -218,7 +218,7 @@ async function drawDiagram0() {
             tickAmount: 10,
             title: {
                 text: 'Windgeschwindigkeit (m/s)',
-                offsetY: 0,
+                offsetY: -16,
                 style: {
                     fontWeight:  '1'
                 }
