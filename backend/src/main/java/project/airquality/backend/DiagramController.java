@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @CrossOrigin(origins = "*")
@@ -325,6 +326,43 @@ public class DiagramController {
 	    con.close();
 	    
 		return json.toString();
+	}
+	
+	@RequestMapping("/dataSingleSensor")
+	public String getDataSingleSensor(@RequestParam int id, @RequestParam String tstamp) throws SQLException {
+		Connection con = DriverManager.
+	            getConnection("jdbc:h2:file:./database", "sa", "");
+		JSONObject jo = new JSONObject();
+		String tstampPM = tstamp.substring(0, 4) + "-" + tstamp.substring(4, 6) + "-" + tstamp.substring(6, 8) 
+			+ "T" + tstamp.substring(8, 10) + ":" + tstamp.substring(10, 11);
+		
+		String queryPM = "SELECT P1, P2 FROM PM_VALUES WHERE TIME_STAMP LIKE '" + tstampPM + "%' AND ID=" + id;
+	    Statement stmtPM = con.createStatement();
+	    ResultSet rsPM = stmtPM.executeQuery(queryPM);
+	    if (rsPM.next()) {
+	    	jo.put("P1", rsPM.getFloat("P1"));
+			jo.put("P2", rsPM.getFloat("P2"));
+	    } else {
+	    	jo.put("P1", "Keine Daten vorhanden");
+			jo.put("P2", "Keine Daten vorhanden");
+	    }
+	    
+	    String queryW = "SELECT SPEED, DEGREE FROM WIND WHERE TSTAMP LIKE '" + tstamp + "'";
+	    Statement stmtW = con.createStatement();
+	    ResultSet rsW = stmtW.executeQuery(queryW);
+	    rsW.next();
+	    jo.put("SPEED", rsW.getFloat("SPEED"));
+		jo.put("DEGREE", rsW.getInt("DEGREE"));
+		
+		String queryP = "SELECT DURATION, MM FROM PRECIPITATION WHERE TSTAMP LIKE '" + tstamp + "'";
+	    Statement stmtP = con.createStatement();
+	    ResultSet rsP = stmtP.executeQuery(queryP);
+	    rsP.next();
+	    jo.put("MM", rsP.getFloat("MM"));
+		jo.put("DURATION", rsP.getInt("DURATION"));
+		
+	    con.close();
+		return jo.toString();
 	}
 	
 }

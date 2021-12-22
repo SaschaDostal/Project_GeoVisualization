@@ -143,5 +143,19 @@ function onClick(id) {
     document.getElementById("rightsidebar").click();
     document.getElementById("offcanvasRightLabel").innerText = "Informationen zur PM-Station " + id;
     document.getElementById("chart_1").innerText = "";
+    var day = document.getElementById("selectDay");
+    var hour = document.getElementById("selectHour");
+    var min = document.getElementById("selectMin");
+    var tstamp = day.value.slice(6) + day.value.slice(3, 5)
+        + day.value.slice(0, 2) + hour.value + min.value;
+    updateSensorData(id, tstamp);
     drawDiagram1(id);
+}
+
+async function updateSensorData(id, tstamp) {
+    let x = await fetch("http://localhost:8080/dataSingleSensor?id=" + id + "&tstamp=" + tstamp);
+    let y = await x.text();
+    let z = JSON.parse(y);
+    document.getElementById("info").innerHTML = '<h6>Aktuelle Werte:<br></h6>Feinstaub:<br>PM2.5: ' + z.P2 + ' µg/m³<br>PM10: ' + z.P1 + ' µg/m³<br>Windgeschwindigkeit: '
+        + z.SPEED + ' m/s<br>Windrichtung: ' + z.DEGREE + ' °<br>Niederschlagsmenge (letzte 10 Min.): ' + z.MM + ' mm<br>Niederschlagsdauer (letzte 10 Min.): ' + z.DURATION + ' Minuten<br>';
 }
