@@ -159,7 +159,7 @@ async function updateSensorData(id, day, hour, min) {
     let a = await fetch("http://localhost:8080/PMStations/" + id);
     let b = await a.text();
     let c = JSON.parse(b);
-    document.getElementById("info").innerHTML = '<h6 class="center">Aktuelle Werte (' + day.value +' - ' + hour.value + ':' + min.value + ' Uhr)<br></h6><br>Feinstaubmessstations-ID: ' + id 
-        + '<br>Längengrad: ' + c.lon + '<br>Breitengrad: ' + c.lat + '<br>PM2.5: ' + z.P2 + ' µg/m³<br>PM10: ' + z.P1 + ' µg/m³<br>Windgeschwindigkeit: ' + z.SPEED + ' m/s<br>Windrichtung: ' 
+    document.getElementById("info").innerHTML = '<h6 class="center">Aktuelle Werte (' + day.value +' - ' + hour.value + ':' + min.value + ' Uhr)<br></h6><br><h6>Feinstaubmessstationsdaten:</h6>Feinstaubmessstations-ID: ' + id 
+        + '<br>Längengrad: ' + c.lon + '<br>Breitengrad: ' + c.lat + '<br>PM2.5: ' + z.P2 + ' µg/m³<br>PM10: ' + z.P1 + ' µg/m³<h6><br>Allgemeine Daten:</h6>Windgeschwindigkeit: ' + z.SPEED + ' m/s<br>Windrichtung: ' 
         + z.DEGREE + ' °<br>Niederschlagsmenge (letzte 10 Min.): ' + z.MM + ' mm<br>Niederschlagsdauer (letzte 10 Min.): ' + z.DURATION + ' Minuten<br><br>';
 }

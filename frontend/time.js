@@ -24,7 +24,13 @@ async function updatePrecipitation(tstamp) {
         var day = 1;
     }
     if (z.precipitation[0].raining == "1") {
-        document.getElementById("rain_img").src = "resources/rain1_" + day + ".png";
+        if(parseFloat(z.precipitation[0].mm) <= 0.10){
+            document.getElementById("rain_img").src = "resources/rain1_" + day + ".png";
+        } else if(parseFloat(z.precipitation[0].mm) <= 0.80){
+            document.getElementById("rain_img").src = "resources/rain2.png";
+        } else {
+            document.getElementById("rain_img").src = "resources/rain3.png";
+        }
     } else {
         document.getElementById("rain_img").src = "resources/rain0_" + day + ".png";
     }
