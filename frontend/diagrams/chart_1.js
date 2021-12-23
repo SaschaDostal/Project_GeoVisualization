@@ -12,10 +12,9 @@ async function drawDiagram1(PMid) {
     }
 
     var options = {
-        title: {
-            text: "Verschiedene Daten über Zeit",
+        subtitle: {
+            text: "Zeitachse in 10 Min. Abständen",
             align: 'center',
-            offsetY: 20
         },
         series: [{
             name: "Feinstaub PM10 (µg/m³)",
@@ -57,7 +56,7 @@ async function drawDiagram1(PMid) {
             }
         },
         tooltip: {
-            custom: function({series, seriesIndex, dataPointIndex, w}) {
+            custom: function ({ series, seriesIndex, dataPointIndex, w }) {
                 return ''
             },
             fixed: {

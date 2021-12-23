@@ -32,13 +32,10 @@ async function drawDiagram3() {
           top: 1
         }
       },
-      title: {
-        text: 'Ø Feinstaub bei Windrichtung (µg/m³)',
-        align: 'center'
-      },
       subtitle: {
-        text: "(ab 1 m/s Windgeschwindigkeit)",
+        text: "in µg/m³ (nur Werte ab 1 m/s Windgeschwindigkeit)",
         align: 'center',
+        offsetY: -3
       },
       stroke: {
         width: 2

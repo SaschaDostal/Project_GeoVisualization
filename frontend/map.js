@@ -141,21 +141,25 @@ async function drawPMStations() {
 
 function onClick(id) {
     document.getElementById("rightsidebar").click();
-    document.getElementById("offcanvasRightLabel").innerText = "Informationen zur PM-Station " + id;
     document.getElementById("chart_1").innerText = "";
     var day = document.getElementById("selectDay");
     var hour = document.getElementById("selectHour");
     var min = document.getElementById("selectMin");
-    var tstamp = day.value.slice(6) + day.value.slice(3, 5)
-        + day.value.slice(0, 2) + hour.value + min.value;
-    updateSensorData(id, tstamp);
+    updateSensorData(id, day, hour, min);
     drawDiagram1(id);
 }
 
-async function updateSensorData(id, tstamp) {
+async function updateSensorData(id, day, hour, min) {
+    var tstamp = day.value.slice(6) + day.value.slice(3, 5)
+        + day.value.slice(0, 2) + hour.value + min.value;
     let x = await fetch("http://localhost:8080/dataSingleSensor?id=" + id + "&tstamp=" + tstamp);
     let y = await x.text();
     let z = JSON.parse(y);
-    document.getElementById("info").innerHTML = '<h6>Aktuelle Werte:<br></h6>Feinstaub:<br>PM2.5: ' + z.P2 + ' µg/m³<br>PM10: ' + z.P1 + ' µg/m³<br>Windgeschwindigkeit: '
-        + z.SPEED + ' m/s<br>Windrichtung: ' + z.DEGREE + ' °<br>Niederschlagsmenge (letzte 10 Min.): ' + z.MM + ' mm<br>Niederschlagsdauer (letzte 10 Min.): ' + z.DURATION + ' Minuten<br>';
+
+    let a = await fetch("http://localhost:8080/PMStations/" + id);
+    let b = await a.text();
+    let c = JSON.parse(b);
+    document.getElementById("info").innerHTML = '<h6 class="center">Aktuelle Werte (' + day.value +' - ' + hour.value + ':' + min.value + ' Uhr)<br></h6><br>Feinstaubmessstations-ID: ' + id 
+        + '<br>Längengrad: ' + c.lon + '<br>Breitengrad: ' + c.lat + '<br>PM2.5: ' + z.P2 + ' µg/m³<br>PM10: ' + z.P1 + ' µg/m³<br>Windgeschwindigkeit: ' + z.SPEED + ' m/s<br>Windrichtung: ' 
+        + z.DEGREE + ' °<br>Niederschlagsmenge (letzte 10 Min.): ' + z.MM + ' mm<br>Niederschlagsdauer (letzte 10 Min.): ' + z.DURATION + ' Minuten<br><br>';
 }

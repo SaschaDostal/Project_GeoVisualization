@@ -21,10 +21,9 @@ async function drawDiagram0() {
     // Chart 0
 
     var options = {
-        title: {
-            text: "Verschiedene Daten über Zeit",
+        subtitle: {
+            text: "Zeitachse in 10 Min. Abständen",
             align: 'center',
-            offsetY: 15
         },
         series: [{
             name: "Feinstaub PM10 (µg/m³)",
@@ -152,11 +151,6 @@ async function drawDiagram0() {
     PM25.push(P2/weight);
     
     var options2 = {
-        title: {
-            text: "Windgeschwindigkeit und Feinstaub",
-            align: 'center',
-            offsetY: 15
-        },
         series: [{
             name: "Feinstaub PM10 (µg/m³)",
             data: PM10

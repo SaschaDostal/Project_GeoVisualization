@@ -27,19 +27,30 @@
         #mapid {
             height: 92%;
         }
+
         #circle {
-            background-color:#fff;
-            border:1px solid rgb(0, 0, 0);
-            border-radius:50%;
-            -moz-border-radius:50%;
-            -webkit-border-radius:50%;
-            width:100px;
+            background-color: #fff;
+            border: 1px solid rgb(0, 0, 0);
+            border-radius: 50%;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+            width: 100px;
             height: 18px;
             width: 18px;
             border-radius: 10px;
         }
+
         body {
             background-color: #3b3b3b;
+        }
+
+        .center {
+            text-align: center;
+            margin: auto;
+            width: 100%;
+            border: 5px solid #c7c7c7;
+            background-color: #9bbbff;
+            padding: 3px;
         }
     </style>
 
@@ -109,7 +120,7 @@
                         <option>40</option>
                         <option>50</option>
                     </select>
-                    
+
                 </div>
                 <div>&nbsp;&nbsp;</div>
                 <button onclick="setTime()" class="btn btn-primary" type="submit">Auswählen</button>
@@ -118,26 +129,35 @@
     </nav>
 
     <!--Bootstrap Off Canvas Right-->
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" style="width:30%;">
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel"
+        style="width:35%;">
         <div class="offcanvas-header">
-            <h5 id="offcanvasRightLabel">Informationen zu PM-Station</h5>
+            <h5 id="offcanvasRightLabel">Informationen zur Feinstaubmessstation</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <div id="info" style="width:100%;"><h6>Aktuelle Werte:<br></h6>Feinstaub:<br>PM2.5:<br>PM10:<br>Windgeschwindigkeit:<br>Windrichtung:<br>Niederschlagsmenge:<br>Niederschlagsdauer:<br></div>
+            <div id="info" style="width:100%;">
+                <h6 class="center">Aktuelle Werte<br></h6>
+                <br>Feinstaubmessstations-ID:<br>PM2.5:<br>PM10:<br>Windgeschwindigkeit:<br>Windrichtung:<br>Niederschlagsmenge:<br>Niederschlagsdauer:<br><br>
+            </div>
+            <br><h6 class="center">Verschiedene Daten über die gesamte Zeit</h6>
             <div id="chart_1" style="width:100%;"></div>
         </div>
     </div>
     <!--Bootstrap Off Canvas Left-->
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasLeft" aria-labelledby="offcanvasLeftLabel" style="width:30%;">
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasLeft" aria-labelledby="offcanvasLeftLabel"
+        style="width:35%;">
         <div class="offcanvas-header">
             <h5 id="offcanvasLeftLabel">Allgemeine Informationen</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
+            <h6 class="center">Verschiedene Daten über die gesamte Zeit</h6>
             <div id="chart_0" style="width:100%;"></div><br>
+            <h6 class="center">Ø Feinstaubmenge bei bestimmter Windgeschwindigkeit</h6>
             <div id="chart_2" style="width:100%;"></div><br>
-            <div id="chart_3" style="width:100%;"></div>
+            <h6 class="center">Ø Feinstaubmenge bei bestimmter Windrichtung</h6>
+            <br><div id="chart_3" style="width:100%;"></div>
         </div>
     </div>
     <div id="mapid"></div>
