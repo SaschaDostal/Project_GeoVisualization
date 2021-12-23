@@ -20,7 +20,6 @@ async function drawDiagram3() {
       data: diagramPMData25,
     }],
     chart: {
-      height: 350,
       type: 'radar',
       toolbar: {
         show: false
