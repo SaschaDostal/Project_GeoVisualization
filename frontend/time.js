@@ -8,7 +8,23 @@ function setTime() {
     updatePrecipitation(tstamp);
     updateWind(tstamp);
     updateParticulateMatter(tstamp);
+    update();
 }
+
+ function update() {
+    document.getElementById("update").style.opacity=1;
+    setTimeout(function(){
+        var fadeTarget = document.getElementById("update");
+        var fadeEffect = setInterval(function () {
+        if (fadeTarget.style.opacity > 0) {
+            fadeTarget.style.opacity -= 0.2;
+        } else {
+            clearInterval(fadeEffect);
+        }
+    }, 50);
+    }, 1000);
+}
+
 
 async function updatePrecipitation(tstamp) {
     let x = await fetch("http://localhost:8080/precipitation?tstamp=" + tstamp);
