@@ -47,7 +47,7 @@
             <p class="lead">Mit "Luftqualität_Stuttgart" wird durch visuelle Analyse die Korrelationen von Feinstaub-,
                 Wind- und Niederschlagsmessungen überprüft.</p>
             <p class="lead" id="button_p">
-                <a class="btn btn-primary btn-lg" href="map.html" role="button">Jetzt entdecken</a>
+                <a class="btn btn-primary btn-lg disabled" href="map.html" role="button">Server derzeit offline</a>
             </p>
         </main>
 
@@ -73,13 +73,16 @@
             async function connectivityTest() {
                 try {
                     const response = await fetchWithTimeout('http://localhost:8080/connectionTest', {
-                        timeout: 100
+                        timeout: 500
                     });
+                    document.getElementById("button_p").innerHTML = '<a class="btn btn-primary btn-lg" href="map.html" role="button">Jetzt entdecken</a>';
                 } catch (error) {
                     document.getElementById("button_p").innerHTML = "<a class=\"btn btn-primary btn-lg disabled\" href=\"map.html\" role=\"button\">Server derzeit offline</a>";
                 }
             }
-            connectivityTest();
+            setInterval(function (){
+                connectivityTest();
+            }, 1000)
         </script>
     </div>
 </body>
