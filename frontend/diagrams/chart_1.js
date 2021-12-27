@@ -13,7 +13,7 @@ async function drawDiagram1(PMid) {
 
     var options = {
         subtitle: {
-            text: "Zeitachse in 10 Min. Abständen",
+            text: "Zeitachse in 1 Stunden Abständen",
             align: 'center',
         },
         series: [{

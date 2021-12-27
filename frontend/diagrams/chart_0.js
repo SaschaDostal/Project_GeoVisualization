@@ -22,7 +22,7 @@ async function drawDiagram0() {
 
     var options = {
         subtitle: {
-            text: "Zeitachse in 10 Min. Abständen",
+            text: "Zeitachse in 1 Stunden Abständen",
             align: 'center',
         },
         series: [{
@@ -86,6 +86,7 @@ async function drawDiagram0() {
                 show: false,
             },
             position: 'top',
+            tickAmount: 100,
             categories: tstamps
         },
         yaxis: [
