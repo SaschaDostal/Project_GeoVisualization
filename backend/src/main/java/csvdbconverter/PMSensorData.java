@@ -13,7 +13,7 @@ public class PMSensorData {
 	public static void main(String[] args) throws FileNotFoundException, SQLException {
 		
 		List<List<String>> records = new ArrayList<>();
-		try (Scanner scanner = new Scanner(new File("data/PM_Sensor_Data_20210101.csv"));) {
+		try (Scanner scanner = new Scanner(new File("data/PM_Sensor_Data2021_01_09.csv"));) {
 		    while (scanner.hasNextLine()) {
 		        records.add(getRecordFromLine(scanner.nextLine()));
 		    }
@@ -21,14 +21,17 @@ public class PMSensorData {
 		Connection con = DriverManager.
 	            getConnection("jdbc:h2:file:./database", "sa", "");
 		for(List<String> line : records) {
-			int id = Integer.parseInt(line.get(0));
-			String timestamp = line.get(5);
-			float p1 = Float.parseFloat(line.get(6));
-			float p2 = Float.parseFloat(line.get(9));
-			
-		    String query = "insert into PM_VALUES (ID, TIME_STAMP, P1, P2) values (" + id + ", '" + timestamp + "', " + p1 + ", " + p2 + ")";
-		    Statement stmt = con.createStatement();
-		    stmt.execute(query);
+			try {
+				int id = Integer.parseInt(line.get(0));
+				String timestamp = line.get(5);
+				float p1 = Float.parseFloat(line.get(6));
+				float p2 = Float.parseFloat(line.get(9));
+				String query = "insert into PM_VALUES (ID, TIME_STAMP, P1, P2) values (" + id + ", '" + timestamp + "', " + p1 + ", " + p2 + ")";
+				Statement stmt = con.createStatement();
+				stmt.execute(query);
+			} catch(Exception e){
+				System.out.println(e);
+			}
 		}
 		con.close();
 	}
