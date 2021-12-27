@@ -3,7 +3,7 @@ var diagramRainData = [];
 var tstamps = [];
 
 async function drawDiagram0() {
-    let x = await fetch("http://localhost:8080/DiagramLine");
+    let x = await fetch("http://localhost:8080/DiagramLineCached");
     let y = await x.text();
     let diagrammLine = JSON.parse(y)
 

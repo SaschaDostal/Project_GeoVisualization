@@ -1,5 +1,5 @@
 async function drawDiagram3() {
-  let x = await fetch("http://localhost:8080/DiagramWindDirection");
+  let x = await fetch("http://localhost:8080/DiagramWindDirectionCached");
   let y = await x.text();
   let diagramWindDirection = JSON.parse(y)
 
