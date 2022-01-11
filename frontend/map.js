@@ -46,7 +46,6 @@ var rain = L.control({ position: 'topleft' });
 rain.onAdd = function (map) {
     var div = L.DomUtil.create('div', 'rain');
     div.style.backgroundColor = "transparent";
-    // Icons made by BZZRINCANTATION from https://www.flaticon.com/
     div.innerHTML = '<div id="rain_div"></div><img id="rain_img" alt="weather" style="width:100px;height:100px;visibility:hidden;">';
     return div;
 };
