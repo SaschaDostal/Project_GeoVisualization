@@ -1,6 +1,17 @@
 # GVI_Projektarbeit_3
 
-Projektarbeit 3 im Fach Geo-Visualisierung
+Project work 3 in the subject Geo-Visualization.
+
+## Members
+
+Sascha Dostal  
+Mat. Nr.: 380083, Mail: 91dosa1bif@hft-stuttgart.de
+
+Alexander Hötzel  
+Mat. Nr.: 380414, Mail: 91hoal1bif@hft-stuttgart.de
+
+Benjamin Simon Taut  
+Mat. Nr.: 380254, Mail: 91tabe1bif@hft-stuttgart.de
 
 ## Installation and Usage
 
