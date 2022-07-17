@@ -1,6 +1,10 @@
 # GVI_Projektarbeit_3
 
-Project work 3 in the subject Geo-Visualization.
+Project work 3 in the subject Geo-Visualization. This application was developed to visually display the correlation of particulate matter and wind measurements as well as precipitation amounts and thus allows a detailed examination of relations between those quantities.
+
+## Preview
+
+![Alt text](./preview/preview_0.PNG)
 
 ## Members
 
